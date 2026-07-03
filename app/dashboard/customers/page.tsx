@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Plus, Users, Building2, User, FileText } from 'lucide-react'
 import DeleteCustomerButton from '@/components/DeleteCustomerButton'
+import { HoverRow } from '@/components/HoverHighlight'
 
 export default async function CustomersPage() {
   const sb = await createClient()
@@ -35,10 +36,8 @@ export default async function CustomersPage() {
         ) : (
           <div>
             {customers.map(c => (
-              <div key={c.id} className="flex items-center justify-between px-5 py-4 transition-all"
-                style={{borderBottom:'1px solid var(--border2)'}}
-                onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='var(--bg3)'}
-                onMouseLeave={e=>(e.currentTarget as HTMLElement).style.background='transparent'}>
+              <HoverRow key={c.id} className="flex items-center justify-between px-5 py-4 transition-all"
+                style={{borderBottom:'1px solid var(--border2)'}}>
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{background:'var(--accent-s)'}}>
                     {c.type==='company' ? <Building2 size={15} style={{color:'var(--accent)'}}/> : <User size={15} style={{color:'var(--accent)'}}/>}
@@ -56,7 +55,7 @@ export default async function CustomersPage() {
                   <Link href={`/dashboard/customers/${c.id}/edit`} className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all" style={{border:'1px solid var(--border)',color:'var(--t2)'}}>Edit</Link>
                   <DeleteCustomerButton id={c.id} name={c.type==='company'?c.company_name||c.name:c.name}/>
                 </div>
-              </div>
+              </HoverRow>
             ))}
           </div>
         )}

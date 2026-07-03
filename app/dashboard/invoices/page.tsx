@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Plus, FileText } from 'lucide-react'
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
+import { HoverLink } from '@/components/HoverHighlight'
 
 export default async function InvoicesPage() {
   const sb = await createClient()
@@ -48,11 +49,10 @@ export default async function InvoicesPage() {
                 const sym = currencySymbol(inv.currency||'GBP')
                 const isOverdue = status==='overdue'
                 return (
-                  <Link key={inv.id} href={`/dashboard/invoices/${inv.id}`}
+                  <HoverLink key={inv.id} href={`/dashboard/invoices/${inv.id}`}
                     className="flex flex-col md:grid md:grid-cols-12 px-5 py-3.5 gap-1 md:gap-0 md:items-center transition-all"
                     style={{borderBottom:'1px solid var(--border2)'}}
-                    onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='var(--bg3)'}
-                    onMouseLeave={e=>(e.currentTarget as HTMLElement).style.background='transparent'}>
+                    hoverStyle={{ background: 'var(--bg3)' }}>
                     <span className="col-span-2 text-sm font-semibold" style={{color:'var(--accent-t)'}}>#{inv.invoice_number}</span>
                     <span className="col-span-3 text-sm" style={{color:'var(--t1)'}}>{cn(inv.customer)}</span>
                     <span className="col-span-2 text-sm" style={{color:'var(--t3)'}}>{new Date(inv.issue_date).toLocaleDateString('en-GB')}</span>
@@ -61,7 +61,7 @@ export default async function InvoicesPage() {
                     </span>
                     <span className="col-span-1 text-xs px-2 py-0.5 rounded-full font-medium w-fit" style={{background:'var(--bg4)',color:ss.text.includes('emerald')?'var(--ok)':ss.text.includes('red')?'var(--err)':ss.text.includes('amber')?'var(--warn)':'var(--t2)'}}>{ss.label}</span>
                     <span className="col-span-2 text-sm font-semibold md:text-right" style={{color:'var(--t1)'}}>{sym}{(inv.total||0).toFixed(2)}</span>
-                  </Link>
+                  </HoverLink>
                 )
               })}
             </div>
