@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Plus, FileCheck } from 'lucide-react'
 import { STATUS_STYLES } from '@/lib/types'
+import { HoverLink } from '@/components/HoverHighlight'
 
 export default async function QuotationsPage() {
   const sb = await createClient()
@@ -42,17 +43,16 @@ export default async function QuotationsPage() {
               {quotes.map(q => {
                 const ss = STATUS_STYLES[q.status]||STATUS_STYLES.draft
                 return (
-                  <Link key={q.id} href={`/dashboard/quotations/${q.id}`}
+                  <HoverLink key={q.id} href={`/dashboard/quotations/${q.id}`}
                     className="flex flex-col md:grid md:grid-cols-5 px-5 py-3.5 gap-1 md:gap-0 md:items-center transition-all"
                     style={{borderBottom:'1px solid var(--border2)'}}
-                    onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='var(--bg3)'}
-                    onMouseLeave={e=>(e.currentTarget as HTMLElement).style.background='transparent'}>
+                    hoverStyle={{ background: 'var(--bg3)' }}>
                     <span className="text-sm font-semibold" style={{color:'var(--accent-t)'}}>#{q.invoice_number}</span>
                     <span className="text-sm" style={{color:'var(--t1)'}}>{cn(q.customer)}</span>
                     <span className="text-sm" style={{color:'var(--t3)'}}>{new Date(q.issue_date).toLocaleDateString('en-GB')}</span>
                     <span className="text-xs px-2.5 py-0.5 rounded-full font-medium w-fit" style={{background:'var(--bg4)',color:ss.text.includes('emerald')?'var(--ok)':ss.text.includes('red')?'var(--err)':'var(--t2)'}}>{ss.label}</span>
                     <span className="text-sm font-semibold md:text-right" style={{color:'var(--t1)'}}>£{(q.total||0).toFixed(2)}</span>
-                  </Link>
+                  </HoverLink>
                 )
               })}
             </div>

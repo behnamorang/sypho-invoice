@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Users, FileText, DollarSign, AlertCircle, Plus, ArrowRight, TrendingUp } from 'lucide-react'
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
+import { HoverCard, HoverLink } from '@/components/HoverHighlight'
 
 export default async function DashboardPage() {
   const sb = await createClient()
@@ -39,11 +40,9 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map(s => (
-          <Link key={s.label} href={s.href}
+          <HoverCard key={s.label} href={s.href}
             className="p-4 rounded-xl border transition-all"
-            style={{ background: 'var(--bg2)', borderColor: 'var(--border)' }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = 'rgba(99,102,241,0.3)'}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'}>
+            style={{ background: 'var(--bg2)', borderColor: 'var(--border)' }}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-xs font-medium" style={{ color: 'var(--t3)' }}>{s.label}</span>
               <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: s.bg }}>
@@ -51,7 +50,7 @@ export default async function DashboardPage() {
               </div>
             </div>
             <p className="text-2xl font-bold font-display" style={{ color: 'var(--t1)' }}>{s.value}</p>
-          </Link>
+          </HoverCard>
         ))}
       </div>
 
@@ -95,11 +94,10 @@ export default async function DashboardPage() {
               const ss = STATUS_STYLES[status] || STATUS_STYLES.draft
               const sym = currencySymbol(inv.currency || 'GBP')
               return (
-                <Link key={inv.id} href={`/dashboard/invoices/${inv.id}`}
+                <HoverLink key={inv.id} href={`/dashboard/invoices/${inv.id}`}
                   className="flex items-center justify-between px-5 py-3.5 transition-all"
                   style={{ borderBottom: '1px solid var(--border2)' }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg3)'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}>
+                  hoverStyle={{ background: 'var(--bg3)' }}>
                   <div>
                     <p className="text-sm font-medium" style={{ color: 'var(--t1)' }}>{(inv.customer as any)?.name || '—'}</p>
                     <p className="text-xs mt-0.5" style={{ color: 'var(--t3)' }}>#{inv.invoice_number} · {new Date(inv.issue_date).toLocaleDateString('en-GB')}</p>
@@ -108,7 +106,7 @@ export default async function DashboardPage() {
                     <span className="text-xs px-2.5 py-0.5 rounded-full font-medium" style={{ background: 'var(--bg4)', color: ss.text.includes('emerald') ? 'var(--ok)' : ss.text.includes('red') ? 'var(--err)' : ss.text.includes('amber') ? 'var(--warn)' : 'var(--t2)' }}>{ss.label}</span>
                     <span className="text-sm font-semibold" style={{ color: 'var(--t1)' }}>{sym}{(inv.total||0).toFixed(2)}</span>
                   </div>
-                </Link>
+                </HoverLink>
               )
             })}
           </div>

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { STATUS_STYLES } from '@/lib/types'
+import { HoverLink } from '@/components/HoverHighlight'
 
 export default async function StatementPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -49,11 +50,10 @@ export default async function StatementPage({ params }: { params: Promise<{ id: 
             {invoices.map(inv=>{
               const ss=STATUS_STYLES[inv.status]||STATUS_STYLES.draft
               return(
-                <Link key={inv.id} href={`/dashboard/invoices/${inv.id}`}
+                <HoverLink key={inv.id} href={`/dashboard/invoices/${inv.id}`}
                   className="flex items-center justify-between px-5 py-3.5 transition-all"
                   style={{borderBottom:'1px solid var(--border2)'}}
-                  onMouseEnter={e=>(e.currentTarget as HTMLElement).style.background='var(--bg3)'}
-                  onMouseLeave={e=>(e.currentTarget as HTMLElement).style.background='transparent'}>
+                  hoverStyle={{ background: 'var(--bg3)' }}>
                   <div>
                     <p className="text-sm font-medium" style={{color:'var(--t1)'}}>#{inv.invoice_number}</p>
                     <p className="text-xs mt-0.5" style={{color:'var(--t3)'}}>{new Date(inv.issue_date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</p>
@@ -62,7 +62,7 @@ export default async function StatementPage({ params }: { params: Promise<{ id: 
                     <span className="text-xs px-2.5 py-0.5 rounded-full font-medium" style={{background:'var(--bg4)',color:ss.text.includes('emerald')?'var(--ok)':ss.text.includes('red')?'var(--err)':'var(--t2)'}}>{ss.label}</span>
                     <span className="text-sm font-semibold w-20 text-right" style={{color:inv.status==='paid'?'var(--ok)':'var(--t1)'}}>£{(inv.total||0).toFixed(2)}</span>
                   </div>
-                </Link>
+                </HoverLink>
               )
             })}
             <div className="flex items-center justify-between px-5 py-4" style={{borderTop:'1px solid var(--border)',background:'var(--bg3)'}}>
