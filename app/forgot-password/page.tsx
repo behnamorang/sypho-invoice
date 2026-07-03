@@ -1,0 +1,77 @@
+'use client'
+import { LogoWhite } from '@/components/Logo'
+import { useState } from 'react'
+import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
+
+export default function ForgotPasswordPage() {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [done, setDone] = useState(false)
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    const { error } = await createClient().auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+    if (error) {
+      setError(error.message)
+      setLoading(false)
+    } else {
+      setDone(true)
+      setLoading(false)
+    }
+  }
+
+  if (done) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+        <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap');`}</style>
+        <div className="w-full max-w-sm text-center">
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl" style={{ background: 'rgba(99,102,241,0.15)' }}>✓</div>
+          <h2 className="text-xl font-bold text-white mb-2" style={{ fontFamily: 'Syne,sans-serif' }}>Check your email</h2>
+          <p className="text-gray-500 text-sm">Check your email for a reset link</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-4">
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap');`}</style>
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 mb-6">
+            <LogoWhite size="md" />
+          </Link>
+          <h1 className="text-2xl font-bold text-white mb-1" style={{ fontFamily: 'Syne,sans-serif' }}>Reset your password</h1>
+          <p className="text-sm text-gray-500">Enter your email and we&apos;ll send you a reset link</p>
+        </div>
+        <div className="rounded-2xl p-6 border border-white/10" style={{ background: 'rgba(255,255,255,0.04)' }}>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && <div className="text-sm px-3 py-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">{error}</div>}
+            <div>
+              <label className="block text-xs font-medium text-gray-400 mb-1.5">Email</label>
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
+                className="w-full px-3 py-2.5 rounded-lg text-sm outline-none transition-all text-white placeholder:text-gray-600"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
+                placeholder="you@example.com" />
+            </div>
+            <button type="submit" disabled={loading}
+              className="w-full py-2.5 rounded-lg text-sm font-semibold text-white disabled:opacity-60 transition-all"
+              style={{ background: 'linear-gradient(135deg,#6366f1,#8b5cf6)', boxShadow: '0 4px 20px rgba(99,102,241,0.3)' }}>
+              {loading ? 'Sending...' : 'Send reset link'}
+            </button>
+          </form>
+        </div>
+        <p className="text-center text-sm text-gray-600 mt-4">
+          Remember your password?{' '}
+          <Link href="/login" className="text-indigo-400 hover:text-indigo-300 font-medium">Sign in</Link>
+        </p>
+      </div>
+    </div>
+  )
+}

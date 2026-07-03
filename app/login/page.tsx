@@ -46,6 +46,7 @@ export default function LoginPage() {
                 className="w-full px-3 py-2.5 rounded-lg text-sm outline-none transition-all text-white placeholder:text-gray-600"
                 style={{background:'rgba(255,255,255,0.06)',border:'1px solid rgba(255,255,255,0.1)'}}
                 placeholder="••••••••"/>
+              <Link href="/forgot-password" className="block text-xs text-indigo-400 hover:text-indigo-300 mt-1.5">Forgot password?</Link>
             </div>
             <button type="submit" disabled={loading}
               className="w-full py-2.5 rounded-lg text-sm font-semibold text-white disabled:opacity-60 transition-all"
