@@ -93,7 +93,7 @@ export default function InvoiceForm({ customers, docType = 'invoice', defaultCur
       {err && <div className="text-sm px-3 py-2.5 rounded-lg bg-red-50 text-red-600">{err}</div>}
 
       <div className="rounded-xl p-5 space-y-4" style={{background:'var(--bg2)',border:'1px solid var(--border)'}}>
-        <h3 className="text-sm font-semibold text-gray-900">Details</h3>
+        <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>Details</h3>
         <div>
           <label className={lbl} style={LS}>Customer *</label>
           {customers.length === 0 ? (
@@ -137,7 +137,7 @@ export default function InvoiceForm({ customers, docType = 'invoice', defaultCur
 
       {/* Line items */}
       <div className="rounded-xl p-5" style={{background:'var(--bg2)',border:'1px solid var(--border)'}}>
-        <h3 className="text-sm font-semibold text-gray-900 mb-4">Line Items</h3>
+        <h3 className="text-sm font-semibold mb-4" style={{color:'var(--t1)'}}>Line Items</h3>
         <div className="hidden sm:grid sm:grid-cols-12 gap-2 mb-2 text-xs font-medium uppercase px-1" style={{color:'var(--t3)'}}>
           <span className="col-span-5">Description</span><span className="col-span-2 text-center">Qty</span>
           <span className="col-span-2 text-right">Price</span><span className="col-span-1 text-center">VAT</span>
@@ -152,18 +152,18 @@ export default function InvoiceForm({ customers, docType = 'invoice', defaultCur
               <select value={item.vat_rate} onChange={e => updItem(item.id, 'vat_rate', Number(e.target.value))} className={inp + " col-span-2 sm:col-span-1 px-1 appearance-auto"} style={IS}>
                 <option value={0}>0%</option><option value={5}>5%</option><option value={20}>20%</option>
               </select>
-              <span className="hidden sm:block col-span-1 text-sm font-medium text-gray-600 text-right">{sym}{(item.quantity * item.unit_price * (1 + item.vat_rate / 100)).toFixed(2)}</span>
+              <span className="hidden sm:block col-span-1 text-sm font-medium text-right" style={{color:'var(--t2)'}}>{sym}{(item.quantity * item.unit_price * (1 + item.vat_rate / 100)).toFixed(2)}</span>
               <button type="button" onClick={() => removeItem(item.id)} disabled={items.length === 1} className="col-span-1 p-2 flex justify-center disabled:opacity-30 transition-all" style={{color:'var(--t3)'}}><Trash2 size={14} /></button>
             </div>
           ))}
         </div>
         <button type="button" onClick={addItem} className="flex items-center gap-1.5 text-sm font-medium text-blue-600 mt-3"><Plus size={14} />Add item</button>
-        <div className="mt-5 pt-4 border-t border-gray-100 space-y-2">
-          <div className="flex justify-end gap-8"><span className="text-sm" style={{color:'var(--t3)'}}>Subtotal</span><span className="text-sm font-medium text-gray-900 w-28 text-right">{sym}{subtotal.toFixed(2)}</span></div>
-          {vatAmt > 0 && <div className="flex justify-end gap-8"><span className="text-sm" style={{color:'var(--t3)'}}>VAT</span><span className="text-sm font-medium text-gray-900 w-28 text-right">{sym}{vatAmt.toFixed(2)}</span></div>}
-          <div className="flex justify-end gap-8 pt-2 border-t border-gray-100">
-            <span className="text-sm font-bold text-gray-900">Total</span>
-            <span className="text-xl font-bold text-gray-900 w-28 text-right">{sym}{total.toFixed(2)}</span>
+        <div className="mt-5 pt-4 space-y-2" style={{borderTop:'1px solid var(--border2)'}}>
+          <div className="flex justify-end gap-8"><span className="text-sm" style={{color:'var(--t3)'}}>Subtotal</span><span className="text-sm font-medium w-28 text-right" style={{color:'var(--t1)'}}>{sym}{subtotal.toFixed(2)}</span></div>
+          {vatAmt > 0 && <div className="flex justify-end gap-8"><span className="text-sm" style={{color:'var(--t3)'}}>VAT</span><span className="text-sm font-medium w-28 text-right" style={{color:'var(--t1)'}}>{sym}{vatAmt.toFixed(2)}</span></div>}
+          <div className="flex justify-end gap-8 pt-2" style={{borderTop:'1px solid var(--border2)'}}>
+            <span className="text-sm font-bold" style={{color:'var(--t1)'}}>Total</span>
+            <span className="text-xl font-bold w-28 text-right" style={{color:'var(--t1)'}}>{sym}{total.toFixed(2)}</span>
           </div>
         </div>
       </div>
@@ -171,13 +171,13 @@ export default function InvoiceForm({ customers, docType = 'invoice', defaultCur
       <div className="rounded-xl p-5 space-y-4" style={{background:'var(--bg2)',border:'1px solid var(--border)'}}>
         {docType === 'invoice' && <div><label className={lbl} style={LS}>Payment Terms</label><input value={payTerms} onChange={e => setPayTerms(e.target.value)} className={inp} style={IS} /></div>}
         <div>
-          <label className={lbl} style={LS}>Notes <span className="text-gray-400 font-normal">/ Special instructions</span></label>
+          <label className={lbl} style={LS}>Notes <span className="font-normal" style={{color:'var(--t3)'}}>/ Special instructions</span></label>
           <textarea value={notes} onChange={e => setNotes(e.target.value)} rows={2} placeholder="e.g. Bank transfer to Sort: 00-00-00, Acc: 12345678" className={inp + " resize-none"} style={IS} />
         </div>
       </div>
 
       <div className="flex gap-3">
-        <Link href={`/dashboard/${docType === 'invoice' ? 'invoices' : 'quotations'}`} className="flex-1 text-center py-2.5 rounded-lg text-sm font-medium border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors">Cancel</Link>
+        <Link href={`/dashboard/${docType === 'invoice' ? 'invoices' : 'quotations'}`} className="flex-1 text-center py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-[var(--bg3)]" style={{border:'1px solid var(--border)',color:'var(--t2)'}}>Cancel</Link>
         <button type="submit" disabled={loading || customers.length === 0} className="flex-1 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-60 transition-all" style={{background:'linear-gradient(135deg,#6366f1,#8b5cf6)'}}>
           {loading ? (isEdit ? 'Saving...' : 'Creating...') : (isEdit ? 'Save Changes' : (docType === 'invoice' ? 'Create Invoice' : 'Create Quotation'))}
         </button>
