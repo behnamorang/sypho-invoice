@@ -1,29 +1,47 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { Plus, FileText } from 'lucide-react'
+import { Plus, FileText, SearchX } from 'lucide-react'
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
 import { HoverLink } from '@/components/HoverHighlight'
+import SearchBox from '@/components/SearchBox'
+import StatusFilterSelect from '@/components/StatusFilterSelect'
 
-export default async function InvoicesPage() {
+export default async function InvoicesPage({ searchParams }: { searchParams: Promise<{ q?: string; status?: string }> }) {
+  const { q, status } = await searchParams
   const sb = await createClient()
   const { data: { user } } = await sb.auth.getUser()
-  const { data: invoices } = await sb.from('invoices').select('*,customer:customers(name,company_name,type)').eq('user_id', user!.id).eq('type', 'invoice').order('created_at', { ascending: false })
+  const { data: allInvoices } = await sb.from('invoices').select('*,customer:customers(name,company_name,type)').eq('user_id', user!.id).eq('type', 'invoice').order('created_at', { ascending: false })
   const cn = (c: any) => c?.type==='company'?(c.company_name||c.name):c?.name||'—'
+  const query = (q || '').trim().toLowerCase()
+  const invoices = (allInvoices || []).filter(inv => {
+    if (status && computeStatus(inv) !== status) return false
+    if (query) {
+      const haystack = [inv.invoice_number, cn(inv.customer)].filter(Boolean).join(' ').toLowerCase()
+      if (!haystack.includes(query)) return false
+    }
+    return true
+  })
 
   return (
     <div className="p-4 md:p-8 pt-20 md:pt-8 max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-display text-2xl font-bold" style={{color:'var(--t1)'}}>Invoices</h1>
-          <p className="text-sm mt-0.5" style={{color:'var(--t3)'}}>{invoices?.length||0} total</p>
+          <p className="text-sm mt-0.5" style={{color:'var(--t3)'}}>{allInvoices?.length||0} total</p>
         </div>
         <Link href="/dashboard/invoices/new" className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
           style={{background:'linear-gradient(135deg,#6366f1,#8b5cf6)'}}>
           <Plus size={15}/>New Invoice
         </Link>
       </div>
+      {!!allInvoices?.length && (
+        <div className="flex flex-col sm:flex-row gap-2 mb-4">
+          <SearchBox placeholder="Search by invoice number or customer..." />
+          <StatusFilterSelect />
+        </div>
+      )}
       <div className="rounded-xl border overflow-hidden" style={{background:'var(--bg2)',borderColor:'var(--border)'}}>
-        {!invoices?.length ? (
+        {!allInvoices?.length ? (
           <div className="text-center py-14">
             <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{background:'var(--accent-s)'}}>
               <FileText size={24} style={{color:'var(--accent)'}}/>
@@ -34,6 +52,14 @@ export default async function InvoicesPage() {
               style={{background:'linear-gradient(135deg,#6366f1,#8b5cf6)'}}>
               <Plus size={14}/>New Invoice
             </Link>
+          </div>
+        ) : invoices.length === 0 ? (
+          <div className="text-center py-14">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{background:'var(--bg3)'}}>
+              <SearchX size={22} style={{color:'var(--t3)'}}/>
+            </div>
+            <p className="font-medium mb-1" style={{color:'var(--t1)'}}>No invoices match your filters</p>
+            <p className="text-sm" style={{color:'var(--t3)'}}>Try a different search term or status</p>
           </div>
         ) : (
           <>
