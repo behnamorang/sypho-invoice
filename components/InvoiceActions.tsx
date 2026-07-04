@@ -84,7 +84,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
       biz?.phone ? `\nQueries: ${biz.phone}` : null,
     ].filter(Boolean).join('\n')
     const url = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}` : `https://wa.me/?text=${encodeURIComponent(lines)}`
-    window.open(url, '_blank')
+    window.location.href = url
   }
 
   async function copyLink() {
