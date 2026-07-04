@@ -20,7 +20,7 @@ export interface Invoice {
   issue_date: string; due_date: string | null; notes: string | null
   subtotal: number; vat_rate: number; vat_amount: number; total: number
   amount_paid: number; payment_terms: string | null; converted_to_invoice: string | null
-  currency: string; created_at: string; customer?: Customer; items?: InvoiceItem[]
+  currency: string; created_at: string; share_token?: string; customer?: Customer; items?: InvoiceItem[]
 }
 export interface InvoiceItem {
   id: string; invoice_id: string; description: string
