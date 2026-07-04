@@ -54,10 +54,17 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
     router.push(`/dashboard/invoices/${inv.id}?new=1`)
   }
 
+  function normalizePhoneForWhatsApp(raw: string): string {
+    let digits = raw.replace(/[^0-9+]/g, '')
+    if (digits.startsWith('+')) digits = digits.slice(1)
+    else if (digits.startsWith('00')) digits = digits.slice(2)
+    else if (digits.startsWith('0')) digits = '44' + digits.slice(1) // assume UK local format
+    return digits
+  }
+
   function sendWhatsApp() {
     const cust = invoice.customer as any
-    const rawPhone = cust?.phone?.replace(/[^0-9+]/g, '') || ''
-    const phone = rawPhone.startsWith('+') ? rawPhone.slice(1) : rawPhone
+    const phone = cust?.phone ? normalizePhoneForWhatsApp(cust.phone) : ''
     const bizName = biz?.name || 'Sypho CRM'
     const custName = cust?.type === 'company' ? (cust.company_name || cust.name) : (cust?.name || '')
     const docType = isQuote ? 'Quotation' : 'Invoice'
