@@ -40,7 +40,7 @@ function ImageUploadField({ label, description, preview, onFile }: {
           <div className='w-32 h-20 rounded-xl flex items-center justify-center text-xs' style={{border:'2px dashed var(--border)',background:'var(--bg3)',color:'var(--t3)'}}>No image</div>
         )}
         <button type="button" onClick={() => ref.current?.click()}
-          className="px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+          className="px-3 py-2 rounded-lg text-sm transition-colors hover:bg-[var(--bg3)]" style={{border:'1px solid var(--border)',color:'var(--t2)'}}>
           {preview ? 'Change' : 'Upload'}
         </button>
         <input ref={ref} type="file" accept="image/*" className="hidden"
@@ -121,14 +121,15 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
       <div className='p-1 rounded-xl flex gap-1' style={{background:'var(--bg3)'}}>
         {(['company', 'freelancer'] as const).map(t => (
           <button key={t} type="button" onClick={() => setBizType(t)}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${bizType === t ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500'}`}>
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${bizType === t ? 'bg-white text-gray-900 shadow-sm' : ''}`}
+            style={bizType === t ? undefined : { color: 'var(--t3)' }}>
             {t === 'company' ? 'Company' : 'Freelancer / Individual'}
           </button>
         ))}
       </div>
 
       <div className={section} style={sectionSt}>
-        <h3 className="text-sm font-semibold text-gray-900">{bizType === 'company' ? 'Company Details' : 'Personal Details'}</h3>
+        <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>{bizType === 'company' ? 'Company Details' : 'Personal Details'}</h3>
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2"><Field label={bizType === 'company' ? 'Company Name *' : 'Full Name *'} value={name} onChange={setName} placeholder={bizType === 'company' ? 'Acme Services Ltd' : 'John Smith'} colSpan2 /></div>
           {bizType === 'company' && <>
@@ -142,7 +143,7 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
       </div>
 
       <div className={section} style={sectionSt}>
-        <h3 className="text-sm font-semibold text-gray-900">Address</h3>
+        <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>Address</h3>
         <div className="grid grid-cols-2 gap-4">
           <div className="col-span-2"><Field label="Street Address" value={address} onChange={setAddress} placeholder="123 High Street" colSpan2 /></div>
           <Field label="City" value={city} onChange={setCity} placeholder="London" />
@@ -157,7 +158,7 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
       </div>
 
       <div className={section} style={sectionSt}>
-        <h3 className="text-sm font-semibold text-gray-900">Invoice Defaults</h3>
+        <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>Invoice Defaults</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className={lbl} style={lblSt}>Default Currency</label>
@@ -168,7 +169,7 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
           <div>
             <label className={lbl} style={lblSt}>Invoice Accent Color</label>
             <div className="flex items-center gap-2">
-              <input type="color" value={invoiceColor} onChange={e => setInvoiceColor(e.target.value)} className="w-10 h-10 rounded-lg border border-gray-200 cursor-pointer p-0.5" />
+              <input type="color" value={invoiceColor} onChange={e => setInvoiceColor(e.target.value)} className="w-10 h-10 rounded-lg cursor-pointer p-0.5" style={{border:'1px solid var(--border)'}} />
               <input value={invoiceColor} onChange={e => setInvoiceColor(e.target.value)} className={inp} style={inpSt} placeholder="#2563eb" />
             </div>
           </div>
@@ -182,9 +183,9 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
       </div>
 
       <div className={section} style={sectionSt}>
-        <h3 className="text-sm font-semibold text-gray-900">Branding</h3>
+        <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>Branding</h3>
         <ImageUploadField label="Company Logo" description="Appears at the top of every invoice and quotation PDF." preview={logoPreview} onFile={handleLogo} />
-        <div className="border-t border-gray-100 pt-4">
+        <div style={{borderTop:'1px solid var(--border2)', paddingTop: '1rem'}}>
           <ImageUploadField label="Signature / Stamp" description="Printed in colour at the bottom of every PDF." preview={sigPreview} onFile={handleSig} />
         </div>
       </div>
