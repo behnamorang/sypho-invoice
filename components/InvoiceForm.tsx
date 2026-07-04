@@ -143,17 +143,48 @@ export default function InvoiceForm({ customers, docType = 'invoice', defaultCur
           <span className="col-span-2 text-right">Price</span><span className="col-span-1 text-center">VAT</span>
           <span className="col-span-1 text-right">Total</span><span className="col-span-1" />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-3 sm:space-y-2">
           {items.map((item, idx) => (
-            <div key={item.id} className="grid grid-cols-12 gap-2 items-center">
-              <input value={item.description} onChange={e => updItem(item.id, 'description', e.target.value)} placeholder={`Service ${idx + 1}`} className={inp + " col-span-12 sm:col-span-5"} style={IS} />
-              <input type="number" value={item.quantity} min={1} onChange={e => updItem(item.id, 'quantity', Math.max(1, Number(e.target.value)))} className={inp + " col-span-4 sm:col-span-2 text-center"} style={IS} />
-              <input type="number" value={item.unit_price} min={0} step={0.01} onChange={e => updItem(item.id, 'unit_price', Number(e.target.value))} className={inp + " col-span-5 sm:col-span-2 text-right"} style={IS} />
-              <select value={item.vat_rate} onChange={e => updItem(item.id, 'vat_rate', Number(e.target.value))} className={inp + " col-span-2 sm:col-span-1 px-1 appearance-auto"} style={IS}>
-                <option value={0}>0%</option><option value={5}>5%</option><option value={20}>20%</option>
-              </select>
-              <span className="hidden sm:block col-span-1 text-sm font-medium text-right" style={{color:'var(--t2)'}}>{sym}{(item.quantity * item.unit_price * (1 + item.vat_rate / 100)).toFixed(2)}</span>
-              <button type="button" onClick={() => removeItem(item.id)} disabled={items.length === 1} className="col-span-1 p-2 flex justify-center disabled:opacity-30 transition-all" style={{color:'var(--t3)'}}><Trash2 size={14} /></button>
+            <div key={item.id}>
+              {/* Mobile card layout */}
+              <div className="sm:hidden rounded-lg p-3" style={{background:'var(--bg3)',border:'1px solid var(--border)'}}>
+                <div className="flex items-start gap-2 mb-2">
+                  <input value={item.description} onChange={e => updItem(item.id, 'description', e.target.value)} placeholder={`Service ${idx + 1}`} className={inp + " flex-1"} style={IS} />
+                  <button type="button" onClick={() => removeItem(item.id)} disabled={items.length === 1} className="p-2 flex-shrink-0 disabled:opacity-30 transition-all" style={{color:'var(--t3)'}}><Trash2 size={14} /></button>
+                </div>
+                <div className="grid grid-cols-3 gap-2 mb-2">
+                  <div>
+                    <label className="block text-[10px] font-medium uppercase mb-1" style={{color:'var(--t3)'}}>Qty</label>
+                    <input type="number" value={item.quantity} min={1} onChange={e => updItem(item.id, 'quantity', Math.max(1, Number(e.target.value)))} className={inp + " text-center"} style={IS} />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-medium uppercase mb-1" style={{color:'var(--t3)'}}>Price</label>
+                    <input type="number" value={item.unit_price} min={0} step={0.01} onChange={e => updItem(item.id, 'unit_price', Number(e.target.value))} className={inp} style={IS} />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-medium uppercase mb-1" style={{color:'var(--t3)'}}>VAT</label>
+                    <select value={item.vat_rate} onChange={e => updItem(item.id, 'vat_rate', Number(e.target.value))} className={inp + " appearance-auto px-1"} style={IS}>
+                      <option value={0}>0%</option><option value={5}>5%</option><option value={20}>20%</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center pt-2" style={{borderTop:'1px solid var(--border)'}}>
+                  <span className="text-xs" style={{color:'var(--t3)'}}>Line total</span>
+                  <span className="text-sm font-semibold" style={{color:'var(--t1)'}}>{sym}{(item.quantity * item.unit_price * (1 + item.vat_rate / 100)).toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Desktop row layout */}
+              <div className="hidden sm:grid sm:grid-cols-12 gap-2 items-center">
+                <input value={item.description} onChange={e => updItem(item.id, 'description', e.target.value)} placeholder={`Service ${idx + 1}`} className={inp + " col-span-5"} style={IS} />
+                <input type="number" value={item.quantity} min={1} onChange={e => updItem(item.id, 'quantity', Math.max(1, Number(e.target.value)))} className={inp + " col-span-2 text-center"} style={IS} />
+                <input type="number" value={item.unit_price} min={0} step={0.01} onChange={e => updItem(item.id, 'unit_price', Number(e.target.value))} className={inp + " col-span-2 text-right"} style={IS} />
+                <select value={item.vat_rate} onChange={e => updItem(item.id, 'vat_rate', Number(e.target.value))} className={inp + " col-span-1 px-1 appearance-auto"} style={IS}>
+                  <option value={0}>0%</option><option value={5}>5%</option><option value={20}>20%</option>
+                </select>
+                <span className="col-span-1 text-sm font-medium text-right" style={{color:'var(--t2)'}}>{sym}{(item.quantity * item.unit_price * (1 + item.vat_rate / 100)).toFixed(2)}</span>
+                <button type="button" onClick={() => removeItem(item.id)} disabled={items.length === 1} className="col-span-1 p-2 flex justify-center disabled:opacity-30 transition-all" style={{color:'var(--t3)'}}><Trash2 size={14} /></button>
+              </div>
             </div>
           ))}
         </div>
