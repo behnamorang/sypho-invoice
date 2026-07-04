@@ -130,7 +130,12 @@ export default function HomePage() {
                 <svg width="72" height="22" viewBox="0 0 72 22" className="mb-1">
                   <path d="M2 16 C 8 5, 12 19, 18 9 S 28 3, 32 13 S 42 19, 48 7 S 58 3, 68 11" fill="none" stroke="#1a1a2e" strokeWidth="1.4" strokeLinecap="round" />
                 </svg>
+                <div className="text-[8px] text-gray-400 border-t border-gray-200 pt-1 w-[110px]">Authorised signature</div>
               </div>
+            </div>
+
+            <div className="bg-gray-50 border-t border-gray-100 px-6 py-2 flex-shrink-0">
+              <div className="text-[7.5px] text-gray-400 text-center">020 7946 0958 · hello@syphopainting.co.uk</div>
             </div>
           </div>
 
