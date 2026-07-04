@@ -1,5 +1,6 @@
 'use client'
 import { LogoWhite } from '@/components/Logo'
+import GoogleButton from '@/components/GoogleButton'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -42,6 +43,12 @@ export default function SignupPage() {
           <p className="text-sm text-gray-500">Set up your account in under 2 minutes</p>
         </div>
         <div className="rounded-2xl p-6 border border-white/10" style={{background:'rgba(255,255,255,0.04)'}}>
+          <GoogleButton />
+          <div className="flex items-center gap-3 my-4">
+            <div className="flex-1 h-px bg-white/10" />
+            <span className="text-xs text-gray-600">or</span>
+            <div className="flex-1 h-px bg-white/10" />
+          </div>
           <form onSubmit={handleSignup} className="space-y-4">
             {error && <div className="text-sm px-3 py-2.5 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">{error}</div>}
             <div>
