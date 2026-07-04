@@ -12,6 +12,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
   const [statusLoading, setStatusLoading] = useState(false)
   const [showStatus, setShowStatus] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [openingWhatsApp, setOpeningWhatsApp] = useState(false)
   const isQuote = invoice.type === 'quotation'
   const base = isQuote ? '/dashboard/quotations' : '/dashboard/invoices'
   const sym = currencySymbol(invoice.currency || 'GBP')
@@ -84,7 +85,8 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
       biz?.phone ? `\nQueries: ${biz.phone}` : null,
     ].filter(Boolean).join('\n')
     const url = phone ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(lines)}` : `https://api.whatsapp.com/send?text=${encodeURIComponent(lines)}`
-    window.location.href = url
+    setOpeningWhatsApp(true)
+    setTimeout(() => { window.location.href = url }, 600)
   }
 
   async function copyLink() {
@@ -99,6 +101,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
   const btnStyle = { background: 'var(--bg3)', border: '1px solid var(--border)', color: 'var(--t2)' }
 
   return (
+    <>
     <div className="flex items-center gap-2 flex-wrap">
       {isQuote && !invoice.converted_to_invoice && invoice.status === 'accepted' && (
         <button onClick={convertToInvoice} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all"
@@ -169,5 +172,11 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
         <Trash2 size={15} />
       </button>
     </div>
+    {openingWhatsApp && (
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2.5 rounded-xl text-sm font-medium text-white z-50 flex items-center gap-2 shadow-lg" style={{ background: '#25d366' }}>
+        <MessageCircle size={14} />Opening WhatsApp...
+      </div>
+    )}
+    </>
   )
 }
