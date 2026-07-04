@@ -39,7 +39,7 @@ export default function SignupPage() {
             <LogoWhite size="md" />
           </Link>
           <h1 className="text-2xl font-bold text-white mb-1" style={{fontFamily:'Syne,sans-serif'}}>Create your account</h1>
-          <p className="text-sm text-gray-500">Free forever · No credit card needed</p>
+          <p className="text-sm text-gray-500">Set up your account in under 2 minutes</p>
         </div>
         <div className="rounded-2xl p-6 border border-white/10" style={{background:'rgba(255,255,255,0.04)'}}>
           <form onSubmit={handleSignup} className="space-y-4">
