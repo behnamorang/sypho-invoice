@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Download, Trash2, ChevronDown, FileCheck, Pencil, PrinterCheck, MessageCircle } from 'lucide-react'
+import { Download, Trash2, ChevronDown, FileCheck, Pencil, PrinterCheck, MessageCircle, Copy, Check } from 'lucide-react'
 import { generatePDF } from '@/lib/pdf'
 import { createClient } from '@/lib/supabase/client'
 import { Invoice, BusinessSettings, currencySymbol, STATUS_STYLES } from '@/lib/types'
@@ -11,6 +11,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
   const [deleting, setDeleting] = useState(false)
   const [statusLoading, setStatusLoading] = useState(false)
   const [showStatus, setShowStatus] = useState(false)
+  const [copied, setCopied] = useState(false)
   const isQuote = invoice.type === 'quotation'
   const base = isQuote ? '/dashboard/quotations' : '/dashboard/invoices'
   const sym = currencySymbol(invoice.currency || 'GBP')
@@ -61,6 +62,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
     const custName = cust?.type === 'company' ? (cust.company_name || cust.name) : (cust?.name || '')
     const docType = isQuote ? 'Quotation' : 'Invoice'
     const balance = invoice.total - (invoice.amount_paid || 0)
+    const link = invoice.share_token ? `${window.location.origin}/i/${invoice.share_token}` : null
     const lines = [
       `Hello ${custName},`, '',
       `Please find your *${docType} #${invoice.invoice_number}* from *${bizName}*.`, '',
@@ -69,11 +71,21 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
       invoice.amount_paid > 0 ? `• Balance Due: *${sym}${balance.toFixed(2)}*` : null,
       invoice.due_date && !isQuote ? `• Due: *${new Date(invoice.due_date).toLocaleDateString('en-GB')}*` : null,
       invoice.payment_terms ? `• Terms: ${invoice.payment_terms}` : null,
+      '',
+      link ? `View and download it here: ${link}` : null,
       '', 'Thank you for your business! 🙏',
       biz?.phone ? `\nQueries: ${biz.phone}` : null,
     ].filter(Boolean).join('\n')
     const url = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}` : `https://wa.me/?text=${encodeURIComponent(lines)}`
     window.open(url, '_blank')
+  }
+
+  async function copyLink() {
+    if (!invoice.share_token) return
+    const link = `${window.location.origin}/i/${invoice.share_token}`
+    await navigator.clipboard.writeText(link)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   const statuses = isQuote ? ['draft','sent','accepted','declined'] : ['draft','sent','paid','overdue','partially_paid']
@@ -120,7 +132,13 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
         </>}
       </div>
 
-      <button onClick={sendWhatsApp}
+      <button onClick={copyLink} title="Copy the invoice link to share anywhere"
+        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all" style={btnStyle}>
+        {copied ? <Check size={14} style={{ color: 'var(--ok)' }} /> : <Copy size={14} />}
+        {copied ? 'Copied' : 'Copy link'}
+      </button>
+
+      <button onClick={sendWhatsApp} title="Sends a link to view this invoice online, not a file"
         className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium text-white transition-all"
         style={{ background: '#25d366' }}>
         <MessageCircle size={14} />WhatsApp
