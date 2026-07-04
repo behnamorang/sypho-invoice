@@ -16,8 +16,8 @@ export default async function EditQuotationPage({ params }: { params: Promise<{ 
   return (
     <div className="p-6 md:p-8 pt-20 md:pt-8 max-w-3xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-gray-900">Edit Quotation</h1>
-        <p className="text-sm text-gray-400 mt-0.5">#{invoice.invoice_number}</p>
+        <h1 className="text-2xl font-semibold" style={{color:'var(--t1)'}}>Edit Quotation</h1>
+        <p className="text-sm mt-0.5" style={{color:'var(--t3)'}}>#{invoice.invoice_number}</p>
       </div>
       <InvoiceForm customers={customers || []} docType="quotation" defaultCurrency={biz?.currency || 'GBP'} editInvoice={{ ...invoice, items: items || [] }} />
     </div>
