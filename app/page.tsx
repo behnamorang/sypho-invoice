@@ -66,37 +66,64 @@ export default function HomePage() {
           <p className="text-xs text-[color:var(--t3)]">Set up your account in under 2 minutes</p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none h-[420px] sm:h-[460px]">
-          <div className="absolute inset-0 m-auto w-[280px] sm:w-[300px] h-[360px] rounded-2xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.5)] rotate-[-4deg] p-5 text-[#111]">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500" />
-              <span className="text-[11px] font-bold tracking-wide text-gray-400">INVOICE</span>
-            </div>
-            <div className="text-[10px] text-gray-400 mb-0.5" style={{ fontFamily: 'ui-monospace,monospace' }}>INV-0248</div>
-            <div className="text-[10px] text-gray-400 mb-4" style={{ fontFamily: 'ui-monospace,monospace' }}>04 Jul 2026</div>
-
-            <div className="text-[11px] text-gray-400 mb-1">Bill to</div>
-            <div className="text-[13px] font-semibold mb-4">Riverside Decorating Ltd</div>
-
-            <div className="space-y-2 pb-3 mb-3 border-b border-gray-100">
-              <div className="flex justify-between text-[11px]">
-                <span className="text-gray-600">Living room · 2 coats</span>
-                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£480.00</span>
+        <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none h-[440px] sm:h-[480px]">
+          <div className="absolute inset-0 m-auto w-[300px] sm:w-[320px] h-[400px] sm:h-[430px] rounded-2xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] rotate-[-2.5deg] p-7 sm:p-8 text-[#1a1a1a] flex flex-col">
+            <div className="flex items-start justify-between pb-5 mb-5 border-b border-gray-100">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex-shrink-0" />
+                <div>
+                  <div className="text-[13px] font-bold leading-tight">Sypho Painting Co.</div>
+                  <div className="text-[10px] text-gray-400 leading-tight">London, UK</div>
+                </div>
               </div>
-              <div className="flex justify-between text-[11px]">
-                <span className="text-gray-600">Hallway ceiling &amp; walls</span>
-                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£210.00</span>
+              <div className="text-right">
+                <div className="text-[10px] font-bold tracking-[0.12em] text-indigo-500 uppercase mb-1">Invoice</div>
+                <div className="text-[10px] text-gray-400" style={{ fontFamily: 'ui-monospace,monospace' }}>INV-0248</div>
               </div>
             </div>
-            <div className="flex justify-between text-[11px] text-gray-500 mb-1">
-              <span>VAT (20%)</span>
-              <span style={{ fontFamily: 'ui-monospace,monospace' }}>£138.00</span>
+
+            <div className="flex justify-between mb-6">
+              <div>
+                <div className="text-[9px] text-gray-400 uppercase tracking-wide mb-1">Bill to</div>
+                <div className="text-[13px] font-semibold">Riverside Decorating Ltd</div>
+                <div className="text-[10px] text-gray-400 mt-0.5">Kensington, London</div>
+              </div>
+              <div className="text-right">
+                <div className="text-[9px] text-gray-400 uppercase tracking-wide mb-1">Date issued</div>
+                <div className="text-[11px] text-gray-700" style={{ fontFamily: 'ui-monospace,monospace' }}>04 Jul 2026</div>
+              </div>
             </div>
-            <div className="flex justify-between items-center mt-2">
-              <span className="text-[12px] font-bold">Total</span>
-              <span className="text-[15px] font-extrabold bg-gradient-to-br from-indigo-600 to-violet-600 bg-clip-text text-transparent" style={{ fontFamily: 'ui-monospace,monospace' }}>
-                £828.00
-              </span>
+
+            <div className="flex-1">
+              <div className="flex justify-between text-[9px] text-gray-400 uppercase tracking-wide pb-2 mb-2.5 border-b border-gray-100">
+                <span>Description</span>
+                <span>Amount</span>
+              </div>
+              <div className="space-y-3">
+                <div className="flex justify-between text-[12px]">
+                  <span className="text-gray-600">Living room · 2 coats</span>
+                  <span className="text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£480.00</span>
+                </div>
+                <div className="flex justify-between text-[12px]">
+                  <span className="text-gray-600">Hallway ceiling &amp; walls</span>
+                  <span className="text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£210.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-4 border-t border-gray-100">
+              <div className="flex justify-between text-[11px] text-gray-500 mb-1.5">
+                <span>Subtotal</span>
+                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£690.00</span>
+              </div>
+              <div className="flex justify-between text-[11px] text-gray-500 mb-3">
+                <span>VAT (20%)</span>
+                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£138.00</span>
+              </div>
+              <div className="flex justify-between items-center bg-indigo-50 rounded-lg px-3 py-2.5">
+                <span className="text-[12px] font-bold text-indigo-900">Total due</span>
+                <span className="text-[16px] font-extrabold text-indigo-600" style={{ fontFamily: 'ui-monospace,monospace' }}>£828.00</span>
+              </div>
             </div>
           </div>
 
