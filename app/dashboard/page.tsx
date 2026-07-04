@@ -4,6 +4,7 @@ import { Users, FileText, DollarSign, AlertCircle, Plus, ArrowRight, TrendingUp 
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
 import { HoverCard, HoverLink } from '@/components/HoverHighlight'
 import OnboardingChecklist from '@/components/OnboardingChecklist'
+import RevenueChart from '@/components/RevenueChart'
 
 export default async function DashboardPage() {
   const sb = await createClient()
@@ -12,7 +13,7 @@ export default async function DashboardPage() {
   const [{ count: cc }, { data: invs }, { data: biz }] = await Promise.all([
     sb.from('customers').select('*', { count: 'exact', head: true }).eq('user_id', uid),
     sb.from('invoices').select('*,customer:customers(name)').eq('user_id', uid).eq('type', 'invoice').order('created_at', { ascending: false }),
-    sb.from('business_settings').select('name').eq('user_id', uid).single(),
+    sb.from('business_settings').select('name,currency').eq('user_id', uid).single(),
   ])
   const all = invs || []
   const revenue = all.filter(i => i.status === 'paid').reduce((s, i) => s + (i.total || 0), 0)
@@ -61,6 +62,8 @@ export default async function DashboardPage() {
           </HoverCard>
         ))}
       </div>
+
+      {all.length > 0 && <RevenueChart invoices={all} currency={biz?.currency || 'GBP'} />}
 
       {outstanding > 0 && (
         <div className="flex items-center justify-between px-4 py-3 rounded-xl mb-4"
