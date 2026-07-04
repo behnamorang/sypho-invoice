@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { Plus, Users, Building2, User, FileText, SearchX } from 'lucide-react'
+import { Plus, Users, FileText, SearchX } from 'lucide-react'
+import Avatar from '@/components/Avatar'
 import DeleteCustomerButton from '@/components/DeleteCustomerButton'
 import { HoverRow } from '@/components/HoverHighlight'
 import SearchBox from '@/components/SearchBox'
@@ -59,9 +60,7 @@ export default async function CustomersPage({ searchParams }: { searchParams: Pr
               <HoverRow key={c.id} className="flex items-center justify-between px-5 py-4 transition-all"
                 style={{borderBottom:'1px solid var(--border2)'}}>
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{background:'var(--accent-s)'}}>
-                    {c.type==='company' ? <Building2 size={15} style={{color:'var(--accent)'}}/> : <User size={15} style={{color:'var(--accent)'}}/>}
-                  </div>
+                  <Avatar name={c.type==='company'?(c.company_name||c.name):c.name} />
                   <div className="min-w-0">
                     <p className="text-sm font-medium truncate" style={{color:'var(--t1)'}}>{c.type==='company'?c.company_name:c.name}</p>
                     <p className="text-xs truncate" style={{color:'var(--t3)'}}>{c.type==='company'?`Contact: ${c.name}`:c.phone||c.email||'No details'}</p>

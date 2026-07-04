@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Plus, FileText, SearchX } from 'lucide-react'
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
 import { HoverLink } from '@/components/HoverHighlight'
+import Avatar from '@/components/Avatar'
 import SearchBox from '@/components/SearchBox'
 import StatusFilterSelect from '@/components/StatusFilterSelect'
 
@@ -80,7 +81,10 @@ export default async function InvoicesPage({ searchParams }: { searchParams: Pro
                     style={{borderBottom:'1px solid var(--border2)'}}
                     hoverStyle={{ background: 'var(--bg3)' }}>
                     <span className="col-span-2 text-sm font-semibold" style={{color:'var(--accent-t)'}}>#{inv.invoice_number}</span>
-                    <span className="col-span-3 text-sm" style={{color:'var(--t1)'}}>{cn(inv.customer)}</span>
+                    <span className="col-span-3 text-sm flex items-center gap-2 min-w-0" style={{color:'var(--t1)'}}>
+                      <Avatar name={cn(inv.customer)} size="sm" />
+                      <span className="truncate">{cn(inv.customer)}</span>
+                    </span>
                     <span className="col-span-2 text-sm" style={{color:'var(--t3)'}}>{new Date(inv.issue_date).toLocaleDateString('en-GB')}</span>
                     <span className="col-span-2 text-sm" style={{color:isOverdue?'var(--err)':'var(--t3)'}}>
                       {inv.due_date?new Date(inv.due_date).toLocaleDateString('en-GB'):'—'}
