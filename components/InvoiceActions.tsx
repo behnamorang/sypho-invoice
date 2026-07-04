@@ -83,7 +83,7 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
       '', 'Thank you for your business! 🙏',
       biz?.phone ? `\nQueries: ${biz.phone}` : null,
     ].filter(Boolean).join('\n')
-    const url = phone ? `https://wa.me/${phone}?text=${encodeURIComponent(lines)}` : `https://wa.me/?text=${encodeURIComponent(lines)}`
+    const url = phone ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(lines)}` : `https://api.whatsapp.com/send?text=${encodeURIComponent(lines)}`
     window.location.href = url
   }
 
