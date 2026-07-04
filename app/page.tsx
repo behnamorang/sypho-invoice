@@ -66,63 +66,70 @@ export default function HomePage() {
           <p className="text-xs text-[color:var(--t3)]">Set up your account in under 2 minutes</p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none h-[440px] sm:h-[480px]">
-          <div className="absolute inset-0 m-auto w-[300px] sm:w-[320px] h-[400px] sm:h-[430px] rounded-2xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] rotate-[-2.5deg] p-7 sm:p-8 text-[#1a1a1a] flex flex-col">
-            <div className="flex items-start justify-between pb-5 mb-5 border-b border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex-shrink-0" />
-                <div>
-                  <div className="text-[13px] font-bold leading-tight">Sypho Painting Co.</div>
-                  <div className="text-[10px] text-gray-400 leading-tight">London, UK</div>
+        <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none h-[460px] sm:h-[500px]">
+          <div className="absolute inset-0 m-auto w-[300px] sm:w-[330px] h-[420px] sm:h-[460px] rounded-2xl bg-white shadow-[0_30px_80px_rgba(0,0,0,0.45)] rotate-[-2.5deg] overflow-hidden flex flex-col text-[#111]">
+            <div className="h-1.5 bg-indigo-600 flex-shrink-0" />
+
+            <div className="flex-1 flex flex-col px-6 pt-4 min-h-0">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex-shrink-0" />
+                  <div className="text-[12px] font-bold leading-tight">Sypho Painting Co.</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[15px] font-extrabold text-indigo-600 tracking-tight leading-none">INVOICE</div>
+                  <div className="text-[9px] text-gray-400 mt-1" style={{ fontFamily: 'ui-monospace,monospace' }}>#INV-0248</div>
+                  <div className="text-[9px] text-gray-400" style={{ fontFamily: 'ui-monospace,monospace' }}>04 Jul 2026</div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="text-[10px] font-bold tracking-[0.12em] text-indigo-500 uppercase mb-1">Invoice</div>
-                <div className="text-[10px] text-gray-400" style={{ fontFamily: 'ui-monospace,monospace' }}>INV-0248</div>
-              </div>
-            </div>
 
-            <div className="flex justify-between mb-6">
-              <div>
-                <div className="text-[9px] text-gray-400 uppercase tracking-wide mb-1">Bill to</div>
-                <div className="text-[13px] font-semibold">Riverside Decorating Ltd</div>
-                <div className="text-[10px] text-gray-400 mt-0.5">Kensington, London</div>
-              </div>
-              <div className="text-right">
-                <div className="text-[9px] text-gray-400 uppercase tracking-wide mb-1">Date issued</div>
-                <div className="text-[11px] text-gray-700" style={{ fontFamily: 'ui-monospace,monospace' }}>04 Jul 2026</div>
-              </div>
-            </div>
+              <div className="h-px bg-gray-200 mb-3" />
 
-            <div className="flex-1">
-              <div className="flex justify-between text-[9px] text-gray-400 uppercase tracking-wide pb-2 mb-2.5 border-b border-gray-100">
-                <span>Description</span>
-                <span>Amount</span>
+              <div className="mb-3">
+                <div className="text-[8px] font-bold text-gray-400 tracking-wide mb-0.5">BILL TO</div>
+                <div className="text-[12px] font-bold">Riverside Decorating Ltd</div>
+                <div className="text-[9px] text-gray-400">Kensington, London</div>
               </div>
-              <div className="space-y-3">
-                <div className="flex justify-between text-[12px]">
-                  <span className="text-gray-600">Living room · 2 coats</span>
-                  <span className="text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£480.00</span>
+
+              <div className="rounded-md overflow-hidden border border-gray-100 mb-3">
+                <div className="grid grid-cols-[1fr_28px_58px] bg-indigo-600 text-white text-[8px] font-bold uppercase px-2.5 py-1.5">
+                  <span>Description</span>
+                  <span className="text-center">Qty</span>
+                  <span className="text-right">Amount</span>
                 </div>
-                <div className="flex justify-between text-[12px]">
-                  <span className="text-gray-600">Hallway ceiling &amp; walls</span>
-                  <span className="text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£210.00</span>
+                <div className="grid grid-cols-[1fr_28px_58px] text-[10px] px-2.5 py-1.5 border-t border-gray-100 items-center">
+                  <span className="text-gray-700">Living room · 2 coats</span>
+                  <span className="text-center text-gray-500">1</span>
+                  <span className="text-right text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£480.00</span>
+                </div>
+                <div className="grid grid-cols-[1fr_28px_58px] text-[10px] px-2.5 py-1.5 border-t border-gray-100 items-center bg-gray-50">
+                  <span className="text-gray-700">Hallway ceiling &amp; walls</span>
+                  <span className="text-center text-gray-500">1</span>
+                  <span className="text-right text-gray-800" style={{ fontFamily: 'ui-monospace,monospace' }}>£210.00</span>
                 </div>
               </div>
-            </div>
 
-            <div className="pt-4 mt-4 border-t border-gray-100">
-              <div className="flex justify-between text-[11px] text-gray-500 mb-1.5">
-                <span>Subtotal</span>
-                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£690.00</span>
+              <div className="ml-auto w-[150px] mb-3">
+                <div className="bg-gray-50 rounded-md px-3 py-2 mb-1.5">
+                  <div className="flex justify-between text-[9px] text-gray-500 mb-1">
+                    <span>Subtotal</span>
+                    <span style={{ fontFamily: 'ui-monospace,monospace' }}>£690.00</span>
+                  </div>
+                  <div className="flex justify-between text-[9px] text-gray-500">
+                    <span>VAT</span>
+                    <span style={{ fontFamily: 'ui-monospace,monospace' }}>£138.00</span>
+                  </div>
+                </div>
+                <div className="bg-indigo-600 rounded-md px-3 py-2 flex justify-between items-center">
+                  <span className="text-[9px] font-bold text-white uppercase">Total</span>
+                  <span className="text-[13px] font-extrabold text-white" style={{ fontFamily: 'ui-monospace,monospace' }}>£828.00</span>
+                </div>
               </div>
-              <div className="flex justify-between text-[11px] text-gray-500 mb-3">
-                <span>VAT (20%)</span>
-                <span style={{ fontFamily: 'ui-monospace,monospace' }}>£138.00</span>
-              </div>
-              <div className="flex justify-between items-center bg-indigo-50 rounded-lg px-3 py-2.5">
-                <span className="text-[12px] font-bold text-indigo-900">Total due</span>
-                <span className="text-[16px] font-extrabold text-indigo-600" style={{ fontFamily: 'ui-monospace,monospace' }}>£828.00</span>
+
+              <div className="mt-auto pb-4">
+                <svg width="72" height="22" viewBox="0 0 72 22" className="mb-1">
+                  <path d="M2 16 C 8 5, 12 19, 18 9 S 28 3, 32 13 S 42 19, 48 7 S 58 3, 68 11" fill="none" stroke="#1a1a2e" strokeWidth="1.4" strokeLinecap="round" />
+                </svg>
               </div>
             </div>
           </div>
