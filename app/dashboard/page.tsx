@@ -3,14 +3,16 @@ import Link from 'next/link'
 import { Users, FileText, DollarSign, AlertCircle, Plus, ArrowRight, TrendingUp } from 'lucide-react'
 import { STATUS_STYLES, computeStatus, currencySymbol } from '@/lib/types'
 import { HoverCard, HoverLink } from '@/components/HoverHighlight'
+import OnboardingChecklist from '@/components/OnboardingChecklist'
 
 export default async function DashboardPage() {
   const sb = await createClient()
   const { data: { user } } = await sb.auth.getUser()
   const uid = user!.id
-  const [{ count: cc }, { data: invs }] = await Promise.all([
+  const [{ count: cc }, { data: invs }, { data: biz }] = await Promise.all([
     sb.from('customers').select('*', { count: 'exact', head: true }).eq('user_id', uid),
     sb.from('invoices').select('*,customer:customers(name)').eq('user_id', uid).eq('type', 'invoice').order('created_at', { ascending: false }),
+    sb.from('business_settings').select('name').eq('user_id', uid).single(),
   ])
   const all = invs || []
   const revenue = all.filter(i => i.status === 'paid').reduce((s, i) => s + (i.total || 0), 0)
@@ -37,6 +39,12 @@ export default async function DashboardPage() {
           <Plus size={15} />New Invoice
         </Link>
       </div>
+
+      <OnboardingChecklist
+        bizDone={!!biz?.name}
+        customerDone={(cc || 0) > 0}
+        invoiceDone={all.length > 0}
+      />
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map(s => (
