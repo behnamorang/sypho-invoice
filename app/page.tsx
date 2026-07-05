@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { LogoWhite } from '@/components/Logo'
+import SiteHeader from '@/components/SiteHeader'
 import FeatureCard from './components/FeatureCard'
 
 const STATS: [string, string][] = [
@@ -25,15 +26,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#0a0a0f] text-[#f0f0f8] overflow-x-hidden" style={{ fontFamily: "'DM Sans',system-ui,sans-serif" }}>
 
       {/* Nav */}
-      <nav className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-        <Link href="/"><LogoWhite size="md" /></Link>
-        <div className="flex items-center gap-2">
-          <Link href="/login" className="text-sm text-[color:var(--t2)] hover:text-white transition-colors px-3 py-2">Sign in</Link>
-          <Link href="/signup" className="text-sm font-semibold text-white px-5 py-2.5 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 hover:brightness-110 transition-all">
-            Get started free
-          </Link>
-        </div>
-      </nav>
+      <SiteHeader />
 
       {/* Hero */}
       <section className="max-w-6xl mx-auto px-6 pt-10 pb-20 sm:pt-16 sm:pb-28 grid lg:grid-cols-2 gap-16 items-center">
