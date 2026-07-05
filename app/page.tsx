@@ -6,16 +6,16 @@ import FeatureCard from './components/FeatureCard'
 const STATS: [string, string][] = [
   ['2 min', 'Setup time'],
   ['∞', 'Unlimited invoices'],
-  ['100%', 'UK compliant'],
+  ['VAT', 'Ready'],
   ['6', 'Currencies'],
 ]
 
 const FEATURES: [string, string, string][] = [
-  ['📄', 'Professional Invoices', 'UK-compliant invoices with VAT, company number, and custom branding. Export PDF in one click.'],
+  ['📄', 'Professional Invoices', 'Fully compliant invoices with VAT, company number, and custom branding. Export PDF in one click.'],
   ['💬', 'Send via WhatsApp', "Share invoices directly to your customer's WhatsApp with a pre-written message."],
   ['💳', 'Payment Tracking', 'Track paid, partially paid, and overdue invoices. Record payments instantly.'],
   ['📋', 'Quotations', 'Send professional quotes and convert accepted ones to invoices in one click.'],
-  ['👥', 'Customer Manager', 'Store companies and individuals with full UK business details including VAT numbers.'],
+  ['👥', 'Customer Manager', 'Store companies and individuals with full business details including VAT numbers.'],
   ['📊', 'Business Dashboard', 'See revenue, outstanding balance, and overdue invoices at a glance.'],
 ]
 
@@ -33,7 +33,7 @@ export default function HomePage() {
         <div className="text-center lg:text-left">
           <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/25 rounded-full px-3.5 py-1.5 mb-7 text-[13px] text-indigo-300">
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
-            Built for UK service businesses
+            Built for trade and service businesses
           </div>
 
           <h1 className="font-display text-[clamp(2.5rem,6vw,4.2rem)] font-extrabold leading-[1.05] tracking-tight mb-6">
@@ -45,7 +45,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg text-[color:var(--t2)] leading-relaxed max-w-md mx-auto lg:mx-0 mb-9">
-            The simplest CRM for painters, electricians, cleaners and every trade business in the UK.
+            The simplest CRM for painters, electricians, cleaners and every trade business.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start mb-4">
@@ -128,7 +128,7 @@ export default function HomePage() {
             </div>
 
             <div className="bg-gray-50 border-t border-gray-100 px-6 py-2 flex-shrink-0">
-              <div className="text-[7.5px] text-gray-400 text-center">020 7946 0958 · hello@syphopainting.co.uk</div>
+              <div className="text-[7.5px] text-gray-400 text-center">hello@syphopainting.com</div>
             </div>
           </div>
 
@@ -196,7 +196,7 @@ export default function HomePage() {
       <footer className="border-t border-white/[0.06] px-6 py-7 max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <LogoWhite size="sm" />
-          <p className="text-xs text-[color:var(--t3)] order-3 sm:order-2">© 2026 Sypho CRM · Built for UK service businesses</p>
+          <p className="text-xs text-[color:var(--t3)] order-3 sm:order-2">© 2026 Sypho CRM · Built for trade and service businesses</p>
           <div className="flex gap-5 order-2 sm:order-3">
             <Link href="/login" className="text-xs text-[color:var(--t3)] hover:text-[color:var(--t2)]">Sign in</Link>
             <Link href="/signup" className="text-xs text-[color:var(--t3)] hover:text-[color:var(--t2)]">Sign up</Link>

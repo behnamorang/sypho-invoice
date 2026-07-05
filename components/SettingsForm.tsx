@@ -59,7 +59,7 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
   const [address, setAddress] = useState(settings?.address || '')
   const [city, setCity] = useState(settings?.city || '')
   const [postcode, setPostcode] = useState(settings?.postcode || '')
-  const [country, setCountry] = useState(settings?.country || 'United Kingdom')
+  const [country, setCountry] = useState(settings?.country || '')
   const [companyReg, setCompanyReg] = useState(settings?.company_reg || '')
   const [vatNumber, setVatNumber] = useState(settings?.vat_number || '')
   const [paymentTerms, setPaymentTerms] = useState(settings?.payment_terms || 'Payment due within 30 days')
@@ -136,22 +136,23 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
             <Field label="Company Reg No." value={companyReg} onChange={setCompanyReg} placeholder="12345678" />
             <Field label="VAT Number" value={vatNumber} onChange={setVatNumber} placeholder="GB123456789" />
           </>}
-          <Field label="Email" value={email} onChange={setEmail} type="email" placeholder="hello@company.co.uk" />
-          <Field label="Phone" value={phone} onChange={setPhone} placeholder="+44 7700 000000" />
-          <div className="col-span-2"><Field label="Website" value={website} onChange={setWebsite} placeholder="https://www.yourcompany.co.uk" colSpan2 /></div>
+          <Field label="Email" value={email} onChange={setEmail} type="email" placeholder="hello@company.com" />
+          <Field label="Phone" value={phone} onChange={setPhone} placeholder="+971 50 123 4567" />
+          <div className="col-span-2"><Field label="Website" value={website} onChange={setWebsite} placeholder="https://www.yourcompany.com" colSpan2 /></div>
         </div>
       </div>
 
       <div className={section} style={sectionSt}>
         <h3 className="text-sm font-semibold" style={{color:'var(--t1)'}}>Address</h3>
         <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-2"><Field label="Street Address" value={address} onChange={setAddress} placeholder="123 High Street" colSpan2 /></div>
-          <Field label="City" value={city} onChange={setCity} placeholder="London" />
-          <Field label="Postcode" value={postcode} onChange={setPostcode} placeholder="SW1A 1AA" />
+          <div className="col-span-2"><Field label="Street Address" value={address} onChange={setAddress} placeholder="Street address" colSpan2 /></div>
+          <Field label="City" value={city} onChange={setCity} placeholder="City" />
+          <Field label="Postcode" value={postcode} onChange={setPostcode} placeholder="Postal code" />
           <div className="col-span-2">
             <label className={lbl} style={lblSt}>Country</label>
             <select value={country} onChange={e => setCountry(e.target.value)} className={inp + " appearance-auto"} style={inpSt}>
-              {['United Kingdom','United States','Canada','Australia','UAE','Oman','Germany','France','Netherlands','Singapore'].map(c => <option key={c}>{c}</option>)}
+              <option value="">Select country</option>
+              {['United Kingdom','Oman','UAE','Saudi Arabia','Qatar','Bahrain','Kuwait','United States','Canada','Australia','Germany','France','Netherlands','Singapore'].map(c => <option key={c}>{c}</option>)}
             </select>
           </div>
         </div>
