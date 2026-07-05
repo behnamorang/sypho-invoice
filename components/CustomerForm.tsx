@@ -28,7 +28,7 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
   const [address, setAddress] = useState(customer?.address||'')
   const [city, setCity] = useState(customer?.city||'')
   const [postcode, setPostcode] = useState(customer?.postcode||'')
-  const [country, setCountry] = useState(customer?.country||'United Kingdom')
+  const [country, setCountry] = useState(customer?.country||'')
   const [notes, setNotes] = useState(customer?.notes||'')
   const [err, setErr] = useState('')
   const [loading, setLoading] = useState(false)
@@ -71,13 +71,13 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
         </>}
         {type==='individual' && <Field label="Full Name *" value={name} onChange={setName} placeholder="John Smith"/>}
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Phone" value={phone} onChange={setPhone} placeholder="+44 7700 000000" type="tel"/>
+          <Field label="Phone" value={phone} onChange={setPhone} placeholder="+971 50 123 4567" type="tel"/>
           <Field label="Email" value={email} onChange={setEmail} placeholder="john@example.com" type="email"/>
         </div>
-        <Field label="Address" value={address} onChange={setAddress} placeholder="123 High Street"/>
+        <Field label="Address" value={address} onChange={setAddress} placeholder="Street address"/>
         <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2"><Field label="City" value={city} onChange={setCity} placeholder="London"/></div>
-          <Field label="Postcode" value={postcode} onChange={setPostcode} placeholder="SW1A 1AA"/>
+          <div className="col-span-2"><Field label="City" value={city} onChange={setCity} placeholder="City"/></div>
+          <Field label="Postcode" value={postcode} onChange={setPostcode} placeholder="Postal code"/>
         </div>
         <Field label="Country" value={country} onChange={setCountry}/>
         <div>

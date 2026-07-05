@@ -59,7 +59,10 @@ export default function InvoiceActions({ invoice, biz }: { invoice: Invoice; biz
     let digits = raw.replace(/[^0-9+]/g, '')
     if (digits.startsWith('+')) digits = digits.slice(1)
     else if (digits.startsWith('00')) digits = digits.slice(2)
-    else if (digits.startsWith('0')) digits = '44' + digits.slice(1) // assume UK local format
+    // A lone leading 0 is a local-format number (e.g. 07700... or 099...).
+    // We cannot safely guess the country code from this alone, so we leave
+    // it as entered. Ask customers to store numbers in full international
+    // format (e.g. +44 7700 900123) for WhatsApp links to work reliably.
     return digits
   }
 

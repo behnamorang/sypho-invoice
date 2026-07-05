@@ -140,7 +140,7 @@ export default function PricingPage() {
       <footer className="border-t border-white/[0.06] px-6 py-7 max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <LogoWhite size="sm" />
-          <p className="text-xs text-[color:var(--t3)] order-3 sm:order-2">© 2026 Sypho CRM · Built for UK service businesses</p>
+          <p className="text-xs text-[color:var(--t3)] order-3 sm:order-2">© 2026 Sypho CRM · Built for trade and service businesses</p>
           <div className="flex gap-5 order-2 sm:order-3">
             <Link href="/login" className="text-xs text-[color:var(--t3)] hover:text-[color:var(--t2)]">Sign in</Link>
             <Link href="/signup" className="text-xs text-[color:var(--t3)] hover:text-[color:var(--t2)]">Sign up</Link>
