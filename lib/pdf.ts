@@ -31,10 +31,8 @@ async function toDataUrl(url: string): Promise<string | null> {
 function addImageFit(doc: jsPDF, data: string, x: number, y: number, maxW: number, maxH: number) {
   try {
     const fmt = getFormat(data)
-    // Create temp image to get dimensions
-    const img = new Image()
-    img.src = data
-    const ratio = img.naturalWidth && img.naturalHeight ? img.naturalWidth / img.naturalHeight : 2
+    const { width, height } = doc.getImageProperties(data)
+    const ratio = width / height
     let w = maxW, h = maxW / ratio
     if (h > maxH) { h = maxH; w = maxH * ratio }
     doc.addImage(data, fmt, x, y, w, h)
@@ -62,10 +60,10 @@ export async function generatePDF(invoice: Invoice, biz: BusinessSettings | null
     biz?.signature_url ? toDataUrl(biz.signature_url) : Promise.resolve(null),
   ])
 
-  // Logo top-left
+  // Logo top-left — larger bounds for readable branding on A4
   let headerH = 20
   if (logoData) {
-    const h = addImageFit(doc, logoData, 14, 6, 50, 20)
+    const h = addImageFit(doc, logoData, 14, 8, 80, 38)
     if (h > 0) {
       doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(17,24,39)
       doc.text(biz?.name || 'Sypho CRM', 14, 6 + h + 6)
@@ -185,10 +183,10 @@ export async function generatePDF(invoice: Invoice, biz: BusinessSettings | null
     doc.text(lines,14,noteY+11); noteY+=11+lines.length*5
   }
 
-  // Signature — printed in colour
+  // Signature — printed in colour, sized for legibility
   if (sigData) {
     const sigY = Math.max(noteY+10, totalY+22)
-    const h = addImageFit(doc, sigData, 14, sigY, 55, 22)
+    const h = addImageFit(doc, sigData, 14, sigY, 85, 38)
     if (h > 0) {
       doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(...gray)
       doc.text('Authorised Signature', 14, sigY+h+5)

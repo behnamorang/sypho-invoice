@@ -36,7 +36,7 @@ export default async function SharedInvoicePage({ params }: { params: Promise<{ 
           <div className="flex items-start justify-between mb-8 pb-6 border-b border-gray-100">
             <div className="flex items-center gap-3">
               {biz?.logo_url ? (
-                <img src={biz.logo_url} alt={biz.name} className="h-10 object-contain" />
+                <img src={biz.logo_url} alt={biz.name} className="h-16 max-w-[200px] object-contain" />
               ) : (
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500" />
               )}
@@ -127,7 +127,7 @@ export default async function SharedInvoicePage({ params }: { params: Promise<{ 
 
           {biz?.signature_url && (
             <div className="mb-6">
-              <img src={biz.signature_url} alt="Signature" className="h-12 object-contain mb-1" />
+              <img src={biz.signature_url} alt="Signature" className="h-20 max-w-[240px] object-contain mb-1" />
               <div className="text-xs text-gray-400 border-t border-gray-200 pt-1 w-40">Authorised signature</div>
             </div>
           )}
