@@ -106,9 +106,7 @@ export default function SettingsForm({ settings }: { settings: BusinessSettings 
       bank_details: bankDetails, currency, invoice_color: invoiceColor,
       logo_url, signature_url, user_id: user.id, updated_at: new Date().toISOString()
     }
-    const { error } = settings
-      ? await sb.from('business_settings').update(payload).eq('user_id', user.id)
-      : await sb.from('business_settings').insert(payload)
+    const { error } = await sb.from('business_settings').upsert(payload, { onConflict: 'user_id' })
     if (error) { setErr(error.message); setLoading(false) }
     else { setSaved(true); setLoading(false); setTimeout(() => setSaved(false), 3000) }
   }
